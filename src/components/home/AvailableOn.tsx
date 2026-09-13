@@ -1,23 +1,24 @@
 import Link from "next/link";
 import { Gamepad2 } from "lucide-react";
-import Reveal from "@/components/Reveal";
 import { platforms } from "@/data/platforms";
+import Reveal from "@/components/Reveal";
 
 export default function AvailableOn() {
   return (
-    <section aria-label="Available on" className="relative overflow-hidden rounded-xl border border-border">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/assets/background_available_on.jpg"
-        alt=""
-        aria-hidden
-        className="absolute inset-0 h-full w-full object-cover"
-        loading="lazy"
-      />
-      <div className="absolute inset-0 bg-background/72" aria-hidden />
+    <section aria-label="Available on" className="relative overflow-hidden">
+      <div className="absolute inset-0 bg-background" aria-hidden>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/background_available_on.jpg"
+          alt=""
+          className="absolute inset-0 m-auto h-full w-full object-contain"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/55 to-background" />
+      </div>
 
-      <Reveal className="relative px-6 py-16 text-center md:py-24">
-        <p className="font-display text-[11px] font-semibold tracking-[0.32em] text-primary">WHERE TO PLAY</p>
+      <Reveal className="relative mx-auto w-full max-w-6xl px-4 pt-16 pb-16 text-center sm:px-6 sm:pt-24 md:pt-32 md:pb-20">
+        <p className="font-display text-xs font-semibold tracking-[0.32em] text-primary sm:text-sm">WHERE TO PLAY</p>
         <h2 className="font-display mx-auto mt-4 max-w-2xl text-3xl font-bold text-balance text-white md:text-4xl">
           Take the road on your platform
         </h2>
@@ -25,7 +26,7 @@ export default function AvailableOn() {
           The journey is the same everywhere. Pick the store you already use and start with any of the eight travelers.
         </p>
 
-        <ul className="mx-auto mt-8 grid max-w-3xl grid-cols-2 items-stretch gap-3 sm:grid-cols-3">
+        <ul className="mx-auto mt-6 grid max-w-3xl grid-cols-2 items-stretch gap-3 sm:grid-cols-3">
           {platforms.map((p) =>
             p.comingSoon || !p.url ? (
               <li key={p.name} className="flex min-h-[76px]">
@@ -55,7 +56,7 @@ export default function AvailableOn() {
 
         <Link
           href="/download"
-          className="mt-8 inline-flex min-h-11 items-center rounded-md px-5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
+          className="mt-2 inline-flex min-h-11 items-center whitespace-nowrap rounded-md px-5 text-sm font-semibold text-primary underline-offset-4 hover:underline"
         >
           See requirements
           <span aria-hidden className="ml-2">

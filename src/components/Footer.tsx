@@ -9,8 +9,8 @@ export default function Footer() {
             OCTOPATH TRAVELER
           </p>
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
-            Fan-made showcase. Octopath Traveler is a game by Square Enix. This
-            site is not affiliated with or endorsed by Square Enix.
+            Octopath Traveler is a game by Square Enix. This site is built by the
+            game developer.
           </p>
           <a
             href="https://square-enix-games.com/en_US/games/octopath-traveler"
@@ -21,6 +21,10 @@ export default function Footer() {
             Official Square Enix page
           </a>
         </div>
+        <p className="text-xs text-muted-foreground">
+          &copy; {new Date().getFullYear()} Square Enix Co., Ltd. All Rights
+          Reserved.
+        </p>
       </div>
     </footer>
   );
