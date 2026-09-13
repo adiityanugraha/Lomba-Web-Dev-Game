@@ -23,6 +23,11 @@
 # misc
 .DS_Store
 *.pem
+SKILL.md
+AGENTS.md
+CLAUDE.md
+docs
+
 
 # debug
 npm-debug.log*
