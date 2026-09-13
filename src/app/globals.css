@@ -61,7 +61,7 @@
     @apply border-border outline-ring/50;
   }
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
   }
   body {
     @apply bg-background text-foreground;
@@ -78,6 +78,187 @@
   }
 }
 
+/* ── Ambient particles ── */
+@keyframes particle-float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(var(--drift, 20px));
+    opacity: 0;
+  }
+}
+
+.ambient-particle {
+  position: fixed;
+  bottom: -10px;
+  width: var(--size, 2px);
+  height: var(--size, 2px);
+  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: particle-float var(--dur, 12s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+  --drift: calc(var(--size, 2px) * 15);
+}
+
+/* ── Hero cinematic letterbox bars ── */
+.hero-letterbox {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 0;
+  background: var(--background);
+  z-index: 10;
+  pointer-events: none;
+}
+.hero-letterbox--top {
+  top: 0;
+}
+.hero-letterbox--bottom {
+  bottom: 0;
+}
+.hero-letterbox.is-open {
+  height: 48px;
+}
+@media (min-width: 768px) {
+  .hero-letterbox.is-open {
+    height: 64px;
+  }
+}
+
+/* ── Scroll progress bar ── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary), var(--accent-hover, #f0c66a));
+  z-index: 100;
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ── Card interactive hover ── */
+.card-interactive {
+  position: relative;
+  transition: height 0.5s ease-out, flex 0.5s ease-out, border-color 0.5s ease-out, box-shadow 0.3s ease;
+}
+.card-interactive:hover {
+  box-shadow: 0 0 24px -4px rgba(212, 164, 76, 0.3);
+}
+.card-interactive img {
+  transition: transform 0.5s ease-out, filter 0.4s ease;
+}
+.card-interactive:hover img {
+  filter: brightness(1.08);
+}
+.card-interactive .card-reveal {
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.card-interactive:hover .card-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Header scrolled state (DOM-toggled, no React re-render) ── */
+header.is-scrolled {
+  border-bottom-color: var(--border);
+  background-color: color-mix(in srgb, var(--background) 95%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* ── Buttons ── */
+.btn-primary {
+  position: relative;
+  background: linear-gradient(180deg, #e0b45c 0%, #c4943a 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 2px 6px rgba(0, 0, 0, 0.35);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, #f0c66a 0%, #d4a44c 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.15),
+    0 2px 12px rgba(212, 164, 76, 0.4);
+}
+.btn-primary:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.2),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.btn-outline {
+  position: relative;
+  border-color: rgba(239, 230, 216, 0.25);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+.btn-outline:hover {
+  border-color: var(--primary);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 12px rgba(212, 164, 76, 0.15);
+}
+.btn-outline:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.btn-light {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f0ece4 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+.btn-light:hover {
+  background: linear-gradient(180deg, #fff8e8 0%, #f5deb0 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    0 2px 12px rgba(212, 164, 76, 0.35);
+}
+.btn-light:active {
+  transform: translateY(1px);
+  box-shadow:
+    inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Ambient gold glow ── */
+.gold-glow {
+  text-shadow: 0 0 40px rgba(212, 164, 76, 0.25), 0 0 80px rgba(212, 164, 76, 0.1);
+}
+.gold-glow-strong {
+  text-shadow: 0 0 20px rgba(212, 164, 76, 0.4), 0 0 60px rgba(212, 164, 76, 0.15), 0 0 100px rgba(212, 164, 76, 0.08);
+}
+
 @utility font-display {
   font-family: var(--font-display), Georgia, serif;
+}
+@utility font-logo {
+  font-family: var(--font-logo), "Cormorant Garamond", Georgia, serif;
 }

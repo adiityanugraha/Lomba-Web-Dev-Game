@@ -14,10 +14,8 @@ export default function Home() {
         <section aria-label="Media" className="border-t border-border py-16 md:py-24">
           <MediaSection />
         </section>
-        <section aria-label="Platforms" className="border-t border-border py-16 md:py-24">
-          <AvailableOn />
-        </section>
       </div>
+      <AvailableOn />
     </main>
   );
 }
