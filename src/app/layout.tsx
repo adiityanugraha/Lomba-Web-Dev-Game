@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Cinzel, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
+import AmbientParticles from "@/components/AmbientParticles";
+import ScrollProgress from "@/components/ScrollProgress";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -25,6 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" suppressHydrationWarning className={`${display.variable} ${body.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <ScrollProgress />
+        <AmbientParticles />
         <Header />
         <div className="flex flex-1 flex-col">{children}</div>
         <Footer />

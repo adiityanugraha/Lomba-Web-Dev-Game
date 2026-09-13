@@ -54,7 +54,7 @@ export default function FeatureTeaser() {
                 aria-expanded={isActive}
                 aria-label={`${titles[i]?.title ?? `Feature ${i + 1}`}: ${isActive ? "expanded" : "expand"}`}
                 className={cn(
-                  "relative h-[72px] overflow-hidden rounded-lg border text-left transition-all duration-500 ease-out",
+                  "card-interactive relative h-[72px] overflow-hidden rounded-lg border text-left",
                   "sm:h-full sm:min-h-0",
                   isActive && "h-72 sm:h-full",
                   isActive ? "border-primary/60 sm:flex-[3]" : "border-border sm:flex-1 hover:border-muted-foreground",
@@ -66,10 +66,11 @@ export default function FeatureTeaser() {
                   alt={titles[i]?.title ?? `Feature ${i + 1}`}
                   loading="lazy"
                   className={cn(
-                    "absolute inset-0 h-full w-full object-cover transition-transform duration-500",
+                    "absolute inset-0 h-full w-full object-cover",
                     isActive && "scale-105",
                   )}
                 />
+                <span className="card-reveal absolute inset-x-3 top-3 z-10 text-xs font-semibold text-primary">{titles[i]?.title}</span>
                 <span
                   className="absolute inset-0"
                   aria-hidden

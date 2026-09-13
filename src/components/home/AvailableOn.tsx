@@ -1,7 +1,28 @@
 import Link from "next/link";
-import { Gamepad2 } from "lucide-react";
+import { FaSteam, FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
+import { SiEpicgames } from "react-icons/si";
+import { TbDeviceNintendo } from "react-icons/tb";
+import type { IconType } from "react-icons";
 import { platforms } from "@/data/platforms";
 import Reveal from "@/components/Reveal";
+
+const platformIcons: Record<string, IconType> = {
+  Steam: FaSteam,
+  "Epic Games Store": SiEpicgames,
+  Windows: FaWindows,
+  "Xbox Series X|S": FaXbox,
+  "Xbox One": FaXbox,
+  "Xbox Game Pass": FaXbox,
+  PS5: FaPlaystation,
+  PS4: FaPlaystation,
+  "Nintendo Switch": TbDeviceNintendo,
+  "Nintendo Switch 2": TbDeviceNintendo,
+};
+
+function PlatformIcon({ name }: { name: string }) {
+  const Icon = platformIcons[name] ?? FaWindows;
+  return <Icon className="size-5 shrink-0" aria-hidden />;
+}
 
 export default function AvailableOn() {
   return (
@@ -31,8 +52,8 @@ export default function AvailableOn() {
             p.comingSoon || !p.url ? (
               <li key={p.name} className="flex min-h-[76px]">
                 <div className="flex w-full flex-1 cursor-not-allowed flex-col items-center justify-center rounded-md border border-white/20 bg-white/5 px-3 py-3 text-center">
-                  <span className="flex items-center justify-center gap-2 text-sm font-semibold text-white/60">
-                    <Gamepad2 className="size-4 shrink-0" aria-hidden />
+                  <span className="flex items-center justify-center gap-2 text-base font-semibold text-white/60">
+                    <PlatformIcon name={p.name} />
                     <span className="leading-snug">{p.name}</span>
                   </span>
                   <span className="mt-1 text-xs text-white/50">Coming soon</span>
@@ -44,9 +65,9 @@ export default function AvailableOn() {
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-3 text-center text-sm font-semibold text-neutral-900 transition-colors hover:bg-primary"
+                  className="flex w-full flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-3 text-center text-base font-semibold text-neutral-900 transition-colors hover:bg-primary"
                 >
-                  <Gamepad2 className="size-4 shrink-0" aria-hidden />
+                  <PlatformIcon name={p.name} />
                   <span className="leading-snug">{p.name}</span>
                 </a>
               </li>

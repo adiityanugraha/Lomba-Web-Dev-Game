@@ -47,7 +47,7 @@ export default function Header() {
       )}
     >
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <Link href="/" className="font-display text-sm font-bold tracking-[0.18em] text-foreground sm:text-base">
+        <Link href="/" className="font-display text-base font-bold tracking-[0.18em] text-foreground sm:text-lg">
           OCTOPATH TRAVELER
         </Link>
 
@@ -58,7 +58,7 @@ export default function Header() {
                 href={l.href}
                 aria-current={pathname === l.href ? "page" : undefined}
                 className={cn(
-                  "rounded-md px-3 py-2.5 text-sm transition-colors",
+                  "rounded-md px-3 py-2.5 text-base transition-colors",
                   pathname === l.href ? "text-primary" : "text-foreground/80 hover:text-foreground",
                 )}
               >
@@ -71,7 +71,7 @@ export default function Header() {
               href="/map"
               aria-current={pathname.startsWith("/map") ? "page" : undefined}
               className={cn(
-                "inline-flex min-h-11 items-center rounded-md px-5 text-sm font-semibold transition-colors",
+                "inline-flex min-h-11 items-center rounded-md px-5 text-base font-semibold transition-colors",
                 pathname.startsWith("/map")
                   ? "bg-accent text-accent-foreground"
                   : "bg-primary text-primary-foreground hover:bg-[var(--accent-hover)]",
