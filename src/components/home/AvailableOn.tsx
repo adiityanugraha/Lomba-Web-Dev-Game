@@ -51,7 +51,7 @@ export default function AvailableOn() {
           {platforms.map((p) =>
             p.comingSoon || !p.url ? (
               <li key={p.name} className="flex min-h-[76px]">
-                <div className="flex w-full flex-1 cursor-not-allowed flex-col items-center justify-center rounded-md border border-white/20 bg-white/5 px-3 py-3 text-center">
+                <div className="flex w-full flex-1 cursor-not-allowed flex-col items-center justify-center rounded-md border border-white/20 bg-white/5 px-3 py-3 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
                   <span className="flex items-center justify-center gap-2 text-base font-semibold text-white/60">
                     <PlatformIcon name={p.name} />
                     <span className="leading-snug">{p.name}</span>
@@ -65,7 +65,7 @@ export default function AvailableOn() {
                   href={p.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex w-full flex-1 items-center justify-center gap-2 rounded-md bg-white px-3 py-3 text-center text-base font-semibold text-neutral-900 transition-colors hover:bg-primary"
+                  className="btn-light flex w-full flex-1 items-center justify-center gap-2 rounded-md px-3 py-3 text-center text-base font-semibold text-neutral-900"
                 >
                   <PlatformIcon name={p.name} />
                   <span className="leading-snug">{p.name}</span>

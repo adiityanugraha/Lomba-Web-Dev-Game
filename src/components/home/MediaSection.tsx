@@ -1,36 +1,10 @@
-"use client";
-
-import { useRef } from "react";
 import Carousel from "@/components/Carousel";
 import Reveal from "@/components/Reveal";
 import { media } from "@/data/media";
-import { gsap, useGSAP, ScrollTrigger } from "@/lib/gsap";
 
 export default function MediaSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    const imgs = section.querySelectorAll('img');
-    imgs.forEach((img) => {
-      gsap.to(img, {
-        yPercent: 8,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 0.5,
-        },
-      });
-    });
-  }, { scope: sectionRef });
-
   return (
-    <div ref={sectionRef} className="overflow-hidden">
+    <div>
       <Reveal>
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

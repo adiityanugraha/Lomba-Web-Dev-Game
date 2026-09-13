@@ -32,7 +32,7 @@ export default function FeatureTeaser() {
         <p className="mt-4 leading-7 text-foreground/80">{features[0]?.description}</p>
         <Link
           href="/features"
-          className="mt-6 inline-flex min-h-11 items-center rounded-md border border-border bg-card px-5 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+          className="btn-outline mt-6 inline-flex min-h-11 items-center rounded-md border px-5 text-sm font-semibold text-foreground"
         >
           All features
           <span aria-hidden className="ml-2 text-primary">

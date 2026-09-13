@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Source_Serif_4 } from "next/font/google";
+import { Cinzel, Cormorant_Garamond, Source_Serif_4 } from "next/font/google";
 import "./globals.css";
 import AmbientParticles from "@/components/AmbientParticles";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -10,6 +10,12 @@ const display = Cinzel({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+});
+
+const logo = Cormorant_Garamond({
+  variable: "--font-logo",
+  subsets: ["latin"],
+  weight: ["600", "700"],
 });
 
 const body = Source_Serif_4({
@@ -24,7 +30,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${display.variable} ${body.variable} h-full antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${display.variable} ${logo.variable} ${body.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         <ScrollProgress />

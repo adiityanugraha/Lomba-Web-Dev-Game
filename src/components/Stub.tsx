@@ -10,7 +10,7 @@ function Stub({ title, owner, note }: { title: string; owner: string; note: stri
       </p>
       <Link
         href="/"
-        className="mt-8 inline-flex min-h-11 items-center rounded-md bg-primary px-6 text-sm font-semibold text-primary-foreground transition-colors hover:bg-[var(--accent-hover)]"
+        className="btn-primary mt-8 inline-flex min-h-11 items-center rounded-md px-6 text-sm font-semibold text-primary-foreground"
       >
         Back to home
       </Link>
