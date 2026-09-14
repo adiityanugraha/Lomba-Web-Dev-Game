@@ -262,3 +262,46 @@ header.is-scrolled {
 @utility font-logo {
   font-family: var(--font-logo), "Cormorant Garamond", Georgia, serif;
 }
+
+/* ── World map (Dev A) ── */
+.map-stage {
+  cursor: url("/images/map/cursor.svg") 0 49, pointer;
+}
+.map-dim {
+  filter: sepia(0.6) brightness(0.55) contrast(0.95);
+}
+.map-lit {
+  --mx: 50%;
+  --my: 50%;
+  opacity: 0;
+  -webkit-mask-image: radial-gradient(circle at var(--mx) var(--my), #000 0, #000 10%, transparent 22%);
+  mask-image: radial-gradient(circle at var(--mx) var(--my), #000 0, #000 10%, transparent 22%);
+}
+.map-marker {
+  image-rendering: pixelated;
+  border-radius: 4px;
+  /* asset team spec: drop shadow #FFFCAD, blur 10, spread 1 */
+  box-shadow: 0 0 10px 1px #fffcad;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.map-hotspot:hover .map-marker,
+.map-hotspot:focus-visible .map-marker {
+  transform: translateY(-4px);
+  box-shadow: 0 0 16px 3px #fffcad;
+}
+.map-hotspot .map-label {
+  opacity: 0;
+  transform: translate(-50%, 4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.map-hotspot:hover .map-label,
+.map-hotspot:focus-visible .map-label {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-marker,
+  .map-hotspot .map-label {
+    transition: none;
+  }
+}
