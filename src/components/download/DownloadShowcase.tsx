@@ -1,13 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
+import type { ComponentType, ReactNode } from "react";
 import { FaPlaystation, FaSteam, FaWindows, FaXbox } from "react-icons/fa";
 import { SiEpicgames } from "react-icons/si";
 import { TbDeviceNintendo } from "react-icons/tb";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
-import ModelViewerLoader from "@/components/download/ModelViewerLoader";
 import { platforms } from "@/data/platforms";
 
 type CardButton = {
@@ -18,48 +17,21 @@ type CardButton = {
   primary?: boolean;
 };
 
+type PlatformLogo = {
+  icon: ComponentType<{ className?: string; "aria-hidden"?: boolean | "true" | "false" }>;
+  label: string;
+};
+
 type DownloadCardProps = {
   title: string;
   description: string;
   backdrop: string;
   eyebrow: string;
-  model: string;
-  eager?: boolean;
-  order?: number;
+  logos: PlatformLogo[];
   buttons: CardButton[];
 };
 
-function DownloadCard({ title, description, backdrop, eyebrow, model, eager, order = 0, buttons }: DownloadCardProps) {
-  const frameRef = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (eager) {
-      const id = window.setTimeout(() => setVisible(true), 0);
-      return () => window.clearTimeout(id);
-    }
-    const el = frameRef.current;
-    if (!el) return;
-    let timer: number | undefined;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          // Stagger mounting so entrance animations finish before the
-          // heavy GLB parse starts. Direct page loads mount PS5 instantly
-          // and queue the rest behind it.
-          timer = window.setTimeout(() => setVisible(true), 600 + order * 600);
-          io.disconnect();
-        }
-      },
-      { rootMargin: "200px" },
-    );
-    io.observe(el);
-    return () => {
-      io.disconnect();
-      if (timer !== undefined) window.clearTimeout(timer);
-    };
-  }, [eager, order]);
-
+function DownloadCard({ title, description, backdrop, eyebrow, logos, buttons }: DownloadCardProps) {
   return (
     <div className="group relative flex h-full w-full flex-col justify-between gap-4 overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/50">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
@@ -79,26 +51,17 @@ function DownloadCard({ title, description, backdrop, eyebrow, model, eager, ord
         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{description}</p>
       </div>
 
-      <div ref={frameRef} className="relative z-10 mx-auto aspect-square w-full max-w-[280px]">
-        {visible ? (
-          <model-viewer
-            src={model}
-            alt={`${title} 3D model`}
-            loading={eager ? "eager" : "lazy"}
-            auto-rotate
-            auto-rotate-delay={1200}
-            interaction-prompt="none"
-            shadow-intensity="1"
-            exposure="1.1"
-            disable-zoom
-            className="pointer-events-none h-full w-full"
-            style={{ background: "transparent" }}
-          />
-        ) : (
-          <div className="flex h-full w-full items-center justify-center" aria-hidden>
-            <div className="size-8 animate-spin rounded-full border-2 border-border border-t-primary" />
-          </div>
-        )}
+      <div className="relative z-10 mx-auto flex w-full max-w-[280px] flex-wrap items-center justify-center gap-3 py-6">
+        {logos.map(({ icon: Icon, label }) => (
+          <span
+            key={label}
+            title={label}
+            aria-label={label}
+            className="flex size-16 items-center justify-center rounded-xl border border-border bg-background/80 text-foreground transition-colors duration-300 group-hover:border-primary/40"
+          >
+            <Icon className="size-8" aria-hidden />
+          </span>
+        ))}
       </div>
 
       <div className="relative z-10 mt-auto flex w-full flex-col justify-end gap-2 pt-2 [min-height:calc(3*2.75rem+2*0.5rem)]">
@@ -141,7 +104,11 @@ export default function DownloadShowcase() {
       description: "Steam, Epic Games, and Windows",
       backdrop: "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Cyrus_2.jpg",
       eyebrow: "PC",
-      model: "/assets/models/gaming_pc.glb",
+      logos: [
+        { icon: FaSteam, label: "Steam" },
+        { icon: SiEpicgames, label: "Epic Games Store" },
+        { icon: FaWindows, label: "Microsoft Store" },
+      ],
       buttons: [
         {
           text: "Buy on Steam",
@@ -166,8 +133,7 @@ export default function DownloadShowcase() {
       description: "PS4 and PS5",
       backdrop: "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Olberic_2.jpg",
       eyebrow: "CONSOLE",
-      model: "/assets/models/ps5.glb",
-      eager: true,
+      logos: [{ icon: FaPlaystation, label: "PlayStation" }],
       buttons: [
         {
           text: "PlayStation Store",
@@ -182,7 +148,7 @@ export default function DownloadShowcase() {
       description: "Xbox One and Series X|S, plus Game Pass",
       backdrop: "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Therion.jpg",
       eyebrow: "CONSOLE",
-      model: "/assets/models/xbox_series_x.glb",
+      logos: [{ icon: FaXbox, label: "Xbox" }],
       buttons: [
         {
           text: "Xbox Store",
@@ -202,7 +168,7 @@ export default function DownloadShowcase() {
       description: "Switch, plus Switch 2 when it lands",
       backdrop: "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Tressa.jpg",
       eyebrow: "NINTENDO",
-      model: "/assets/models/nintendo_switch.glb",
+      logos: [{ icon: TbDeviceNintendo, label: "Nintendo Switch" }],
       buttons: [
         {
           text: "Nintendo eShop",
@@ -221,15 +187,12 @@ export default function DownloadShowcase() {
   ];
 
   return (
-    <>
-      <ModelViewerLoader />
-      <div className="grid w-full grid-cols-1 items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-4">
-        {cards.map((card, i) => (
-          <Reveal key={card.title} delay={i * 0.08} className="h-full">
-            <DownloadCard {...card} order={i} />
-          </Reveal>
-        ))}
-      </div>
-    </>
+    <div className="grid w-full grid-cols-1 items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {cards.map((card, i) => (
+        <Reveal key={card.title} delay={i * 0.08} className="h-full">
+          <DownloadCard {...card} />
+        </Reveal>
+      ))}
+    </div>
   );
 }
