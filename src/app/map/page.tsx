@@ -16,7 +16,7 @@ export default function MapPage() {
         <h1 className="font-display mt-4 max-w-2xl text-4xl font-bold text-balance md:text-5xl">Map of Orsterra</h1>
         <p className="mt-4 max-w-xl leading-7 text-foreground/80">
           Eight regions, eight travelers. Hover a traveler to light up their homeland; select one to read their
-          story. Drag to pan, scroll or pinch to zoom.
+          story. On a phone, drag to pan and pinch to zoom.
         </p>
       </Reveal>
       <Reveal delay={0.1} className="mt-10">

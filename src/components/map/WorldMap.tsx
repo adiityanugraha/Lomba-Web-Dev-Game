@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   KeepScale,
@@ -21,6 +21,16 @@ export default function WorldMap() {
   const markerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const [active, setActive] = useState<Region | null>(null);
   const [leaving, setLeaving] = useState(false);
+  // Desktop: the whole map fits the 3:2 stage, so user zoom/pan is off and only the
+  // click-to-zoom transition remains. Mobile keeps pinch + drag.
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const update = () => setIsDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   // Spotlight: move the mask to the hovered hotspot, fade the full-colour layer in/out.
   useGSAP(
@@ -64,7 +74,7 @@ export default function WorldMap() {
   return (
     <div
       ref={stageRef}
-      className="map-stage aspect-[3/4] w-full overflow-hidden rounded-xl border border-border bg-card sm:aspect-[4/3] md:aspect-auto md:h-[70vh]"
+      className="map-stage aspect-[3/4] w-full overflow-hidden rounded-xl border border-border bg-card sm:aspect-[4/3] md:aspect-[3/2]"
     >
       <TransformWrapper
         ref={wrapperRef}
@@ -73,9 +83,10 @@ export default function WorldMap() {
         minScale={0.2}
         maxScale={4}
         limitToBounds
-        wheel={{ step: 0.15 }}
+        wheel={{ step: 0.15, disabled: isDesktop }}
+        pinch={{ disabled: isDesktop }}
+        panning={{ velocityDisabled: true, disabled: isDesktop }}
         doubleClick={{ disabled: true }}
-        panning={{ velocityDisabled: true }}
       >
         <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
           <div className="relative select-none" style={{ width: MAP_WIDTH, height: MAP_HEIGHT }}>
