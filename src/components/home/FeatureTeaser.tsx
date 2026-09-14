@@ -66,11 +66,10 @@ export default function FeatureTeaser() {
                   alt={titles[i]?.title ?? `Feature ${i + 1}`}
                   loading="lazy"
                   className={cn(
-                    "absolute inset-0 h-full w-full object-cover",
-                    isActive && "scale-105",
+                    "absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    isActive ? "scale-105" : "scale-100",
                   )}
                 />
-                <span className="card-reveal absolute inset-x-3 top-3 z-10 text-xs font-semibold text-primary">{titles[i]?.title}</span>
                 <span
                   className="absolute inset-0"
                   aria-hidden
@@ -82,13 +81,15 @@ export default function FeatureTeaser() {
                   </span>
                   <span
                     className={cn(
-                      "min-w-0 flex-1 transition-opacity duration-300",
-                      isActive ? "opacity-100" : "sm:opacity-0",
+                      "min-w-0 flex-1 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                      isActive
+                        ? "translate-x-0 opacity-100 blur-0 delay-200"
+                        : "translate-x-0 opacity-100 blur-0 sm:translate-x-3 sm:opacity-0 sm:blur-[3px] sm:delay-0",
                     )}
                   >
                     <span
                       className={cn(
-                        "block text-sm font-semibold text-white",
+                        "block text-sm leading-snug font-semibold text-white",
                         isActive ? "whitespace-normal" : "truncate",
                       )}
                     >

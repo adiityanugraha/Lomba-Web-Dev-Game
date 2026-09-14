@@ -20,43 +20,39 @@ export default function Reveal({ children, delay = 0, as: Tag = "div", className
 
       const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (reduce) {
-        gsap.set(el, { opacity: 1, y: 0, clearProps: "transform" });
+        gsap.set(el, { opacity: 1, y: 0, filter: "blur(0px)", clearProps: "transform" });
         el.style.opacity = "1";
         return;
       }
 
-      gsap.set(el, { opacity: 0, y: 40 });
+      gsap.set(el, { opacity: 0, y: 28, filter: "blur(6px)" });
+
+      const animateIn = () =>
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          duration: 1,
+          delay,
+          ease: "expo.out",
+          overwrite: true,
+        });
 
       const trigger = ScrollTrigger.create({
         trigger: el,
         start: "top 88%",
         once: true,
-        onEnter: () => {
-          gsap.to(el, {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            delay,
-            ease: "power2.out",
-            overwrite: true,
-          });
-        },
+        onEnter: animateIn,
       });
 
       if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
-        gsap.to(el, {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          delay,
-          ease: "power2.out",
-        });
+        animateIn();
         trigger.kill();
       }
 
       const fallback = window.setTimeout(() => {
         if (parseFloat(getComputedStyle(el).opacity) < 0.95) {
-          gsap.to(el, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" });
+          gsap.to(el, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.6, ease: "expo.out" });
         }
         ScrollTrigger.refresh();
       }, 1400);

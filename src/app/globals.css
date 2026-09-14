@@ -152,25 +152,45 @@
 /* ── Card interactive hover ── */
 .card-interactive {
   position: relative;
-  transition: height 0.5s ease-out, flex 0.5s ease-out, border-color 0.5s ease-out, box-shadow 0.3s ease;
+  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1), flex 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .card-interactive:hover {
   box-shadow: 0 0 24px -4px rgba(212, 164, 76, 0.3);
 }
 .card-interactive img {
-  transition: transform 0.5s ease-out, filter 0.4s ease;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
 }
 .card-interactive:hover img {
   filter: brightness(1.08);
 }
 .card-interactive .card-reveal {
   opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(6px);
+  filter: blur(3px);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .card-interactive:hover .card-reveal {
   opacity: 1;
   transform: translateY(0);
+  filter: blur(0);
+}
+
+/* ── Download card float ── */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-float {
+    animation: none;
+  }
 }
 
 /* ── Header scrolled state (DOM-toggled, no React re-render) ── */
