@@ -1,4 +1,6 @@
-import * as React from "react";
+"use client";
+
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { FaPlaystation, FaSteam, FaWindows, FaXbox } from "react-icons/fa";
 import { SiEpicgames } from "react-icons/si";
@@ -12,7 +14,7 @@ type CardButton = {
   text: string;
   href: string;
   comingSoon?: boolean;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   primary?: boolean;
 };
 
@@ -23,10 +25,41 @@ type DownloadCardProps = {
   eyebrow: string;
   model: string;
   eager?: boolean;
+  order?: number;
   buttons: CardButton[];
 };
 
-function DownloadCard({ title, description, backdrop, eyebrow, model, eager, buttons }: DownloadCardProps) {
+function DownloadCard({ title, description, backdrop, eyebrow, model, eager, order = 0, buttons }: DownloadCardProps) {
+  const frameRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    if (eager) {
+      const id = window.setTimeout(() => setVisible(true), 0);
+      return () => window.clearTimeout(id);
+    }
+    const el = frameRef.current;
+    if (!el) return;
+    let timer: number | undefined;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          // Stagger mounting so entrance animations finish before the
+          // heavy GLB parse starts. Direct page loads mount PS5 instantly
+          // and queue the rest behind it.
+          timer = window.setTimeout(() => setVisible(true), 600 + order * 600);
+          io.disconnect();
+        }
+      },
+      { rootMargin: "200px" },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      if (timer !== undefined) window.clearTimeout(timer);
+    };
+  }, [eager, order]);
+
   return (
     <div className="group relative flex h-full w-full flex-col justify-between gap-4 overflow-hidden rounded-xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/50">
       <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
@@ -46,19 +79,27 @@ function DownloadCard({ title, description, backdrop, eyebrow, model, eager, but
         <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{description}</p>
       </div>
 
-      <model-viewer
-        src={model}
-        alt={`${title} 3D model`}
-        loading={eager ? "eager" : "lazy"}
-        auto-rotate
-        auto-rotate-delay={1200}
-        interaction-prompt="none"
-        shadow-intensity="1"
-        exposure="1.1"
-        disable-zoom
-        className="relative z-10 mx-auto aspect-square w-full max-w-[280px] pointer-events-none"
-        style={{ background: "transparent" }}
-      />
+      <div ref={frameRef} className="relative z-10 mx-auto aspect-square w-full max-w-[280px]">
+        {visible ? (
+          <model-viewer
+            src={model}
+            alt={`${title} 3D model`}
+            loading={eager ? "eager" : "lazy"}
+            auto-rotate
+            auto-rotate-delay={1200}
+            interaction-prompt="none"
+            shadow-intensity="1"
+            exposure="1.1"
+            disable-zoom
+            className="pointer-events-none h-full w-full"
+            style={{ background: "transparent" }}
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center" aria-hidden>
+            <div className="size-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+          </div>
+        )}
+      </div>
 
       <div className="relative z-10 mt-auto flex w-full flex-col justify-end gap-2 pt-2 [min-height:calc(3*2.75rem+2*0.5rem)]">
         {buttons.map((button) =>
@@ -139,7 +180,7 @@ export default function DownloadShowcase() {
     {
       title: "Xbox",
       description: "Xbox One and Series X|S, plus Game Pass",
-      backdrop: "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Olberic_2.jpg",
+      backdrop: "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Therion.jpg",
       eyebrow: "CONSOLE",
       model: "/assets/models/xbox_series_x.glb",
       buttons: [
@@ -185,7 +226,7 @@ export default function DownloadShowcase() {
       <div className="grid w-full grid-cols-1 items-stretch gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {cards.map((card, i) => (
           <Reveal key={card.title} delay={i * 0.08} className="h-full">
-            <DownloadCard {...card} />
+            <DownloadCard {...card} order={i} />
           </Reveal>
         ))}
       </div>

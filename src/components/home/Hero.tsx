@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type MouseEvent } from "react";
 import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
 
@@ -9,6 +9,11 @@ export default function Hero() {
   const overlayRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
+  const scrollToTrailer = (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    document.getElementById("trailer")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.replaceState(null, "", "#trailer");
+  };
   useGSAP(() => {
     const bg = bgRef.current;
     const section = sectionRef.current;
@@ -122,6 +127,7 @@ export default function Hero() {
         <div data-hero-fade className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Link
             href="#trailer"
+            onClick={scrollToTrailer}
             className="btn-primary inline-flex min-h-11 items-center rounded-md px-6 text-sm font-semibold text-primary-foreground"
           >
             Watch trailer
