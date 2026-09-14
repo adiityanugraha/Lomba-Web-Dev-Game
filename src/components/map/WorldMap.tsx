@@ -90,26 +90,34 @@ export default function WorldMap() {
       >
         <TransformComponent wrapperStyle={{ width: "100%", height: "100%" }}>
           <div className="relative select-none" style={{ width: MAP_WIDTH, height: MAP_HEIGHT }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/map/orsterra.jpg"
-              alt="Map of Orsterra"
-              width={MAP_WIDTH}
-              height={MAP_HEIGHT}
-              draggable={false}
-              className="map-dim absolute inset-0 h-full w-full"
-            />
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              ref={litRef}
-              src="/images/map/orsterra.jpg"
-              alt=""
-              aria-hidden
-              width={MAP_WIDTH}
-              height={MAP_HEIGHT}
-              draggable={false}
-              className="map-lit pointer-events-none absolute inset-0 h-full w-full"
-            />
+            {/* Phones get the 768px file; the layout box stays MAP_WIDTH x MAP_HEIGHT either way. */}
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/images/map/orsterra-768.jpg" />
+              { }
+              <img
+                src="/images/map/orsterra.jpg"
+                alt="Map of Orsterra"
+                width={MAP_WIDTH}
+                height={MAP_HEIGHT}
+                draggable={false}
+                fetchPriority="high"
+                className="map-dim absolute inset-0 h-full w-full"
+              />
+            </picture>
+            <picture>
+              <source media="(max-width: 767px)" srcSet="/images/map/orsterra-768.jpg" />
+              { }
+              <img
+                ref={litRef}
+                src="/images/map/orsterra.jpg"
+                alt=""
+                aria-hidden
+                width={MAP_WIDTH}
+                height={MAP_HEIGHT}
+                draggable={false}
+                className="map-lit pointer-events-none absolute inset-0 h-full w-full"
+              />
+            </picture>
 
             {regions.map((r) => (
               <div
