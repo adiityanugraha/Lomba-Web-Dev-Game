@@ -265,7 +265,7 @@ header.is-scrolled {
 
 /* ── World map (Dev A) ── */
 .map-stage {
-  cursor: url("/images/map/cursor.svg") 0 49, pointer;
+  cursor: url("/images/map/cursor.png") 0 39, pointer;
 }
 .map-dim {
   filter: sepia(0.6) brightness(0.55) contrast(0.95);
