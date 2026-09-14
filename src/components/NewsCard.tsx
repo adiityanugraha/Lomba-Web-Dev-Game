@@ -53,7 +53,7 @@ export default function NewsCard({ item, variant = "row" }: { item: NewsItem; va
           {formatDate(item.date)}
         </time>
         <h3 className="font-display mt-1 text-lg leading-snug font-bold text-balance">{item.title}</h3>
-        <p className="mt-1 line-clamp-2 text-sm text-muted-foreground">{item.excerpt}</p>
+        <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{item.excerpt}</p>
       </div>
     </Link>
   );
