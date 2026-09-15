@@ -47,8 +47,7 @@ export default function FeatureBanner({ feature, flip }: { feature: Feature; fli
         }}
       />
       <Reveal className={cn("relative px-6 py-20 md:px-12 md:py-32", flip ? "mr-auto max-w-xl" : "ml-auto max-w-xl")}>
-        <p className="font-display text-[11px] font-semibold tracking-[0.32em] text-primary">FEATURE</p>
-        <h2 className="font-display mt-4 text-3xl font-bold text-balance text-white md:text-4xl">{feature.title}</h2>
+        <h2 className="font-display text-3xl font-bold text-balance text-white md:text-4xl">{feature.title}</h2>
         <p className="mt-4 leading-7 text-white/85">{feature.description}</p>
       </Reveal>
     </section>
