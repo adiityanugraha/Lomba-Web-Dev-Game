@@ -9,7 +9,7 @@ services:
         required: false
     environment:
       NODE_ENV: production
-      PORT: 3000
+      PORT: 1999
       HOSTNAME: 0.0.0.0
     # RAM 4GB dibagi OS + lain-lain: batasi Next.js ~1.5GB
     mem_limit: 1.5g
@@ -20,7 +20,7 @@ services:
           "CMD",
           "node",
           "-e",
-          "fetch('http://localhost:3000/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+          "fetch('http://localhost:1999/').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
         ]
       interval: 30s
       timeout: 5s
