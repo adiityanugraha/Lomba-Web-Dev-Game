@@ -46,9 +46,44 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
         />
         <div className="mt-8 space-y-5 leading-8 text-foreground/80">
           {n.body.map((p, i) => (
-            <p key={i}>{p}</p>
+            <div key={i} dangerouslySetInnerHTML={{ __html: p }} />
           ))}
         </div>
+
+        {n.relatedLinks && (
+          <div className="mt-8 text-foreground/90">
+            <h3 className="font-bold underline text-lg mb-2">Related Links:</h3>
+            
+            {/* Official Websites */}
+            {n.relatedLinks.officialWebsites && n.relatedLinks.officialWebsites.length > 0 && (
+              <div className="mb-4">
+                <span className="font-bold block mb-1">Official Websites:</span>
+                <div className="flex flex-col space-y-1">
+                  {n.relatedLinks.officialWebsites.map((url, i) => (
+                    <a key={i} href={url} target="_blank" rel="noreferrer" className="text-red-700 hover:underline">
+                      {url}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Social Media */}
+            {n.relatedLinks.socials && n.relatedLinks.socials.length > 0 && (
+              <div className="flex flex-col space-y-1">
+                {n.relatedLinks.socials.map((social, i) => (
+                  <div key={i}>
+                    <span className="font-bold">{social.label}: </span>
+                    <a href={social.url} target="_blank" rel="noreferrer" className="text-red-700 hover:underline break-all">
+                      {social.url}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
       </Reveal>
     </main>
   );
