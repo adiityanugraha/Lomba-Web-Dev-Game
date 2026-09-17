@@ -40,6 +40,9 @@ for (const p of platforms) {
 
 // --- Dev A data ---
 if (regions.length !== 8) errors.push(`regions: expected 8 entries, found ${regions.length}`);
+// O-C-T-O-P-A-T-H order
+const initials = regions.map((r) => r.traveler.name[0].toUpperCase()).join("");
+if (initials !== "OCTOPATH") errors.push(`regions: traveler initials must spell OCTOPATH, got ${initials}`);
 unique(regions.map((r) => r.slug), "regions");
 for (const r of regions) {
   const where = `regions:${r.slug}`;
@@ -51,7 +54,10 @@ for (const r of regions) {
   }
   checkImage(r.heroImage, where);
   const t = r.traveler;
-  if (!t.name || !t.job || !t.hook || !t.description || !t.pathAction || !t.talent) {
+  if (
+    !t.name || !t.job || !t.hook || !t.description ||
+    !t.pathAction || !t.pathActionDescription || !t.talent || !t.talentDescription
+  ) {
     errors.push(`${where}: traveler missing text`);
   }
   checkImage(t.portrait, `${where}.traveler.portrait`);
