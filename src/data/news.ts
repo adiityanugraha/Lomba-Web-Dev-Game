@@ -172,7 +172,7 @@ const items: NewsItem[] = [
 
 ];
 
-export const news: NewsItem[] = [...items].sort((a, b) => a.date.localeCompare(a.date));
+export const news: NewsItem[] = [...items].sort((a, b) => b.date.localeCompare(a.date));
 
 export function getNewsItem(slug: string): NewsItem | undefined {
   return news.find((n) => n.slug === slug);

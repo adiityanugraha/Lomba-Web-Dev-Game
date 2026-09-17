@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import ZoomableImage from "@/components/ZoomableImage";
 import { formatDate } from "@/components/NewsCard";
 import { getNewsItem, news } from "@/data/news";
 
@@ -37,13 +38,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
         </time>
         <h1 className="font-display mt-3 text-3xl font-bold text-balance md:text-5xl">{n.title}</h1>
         <p className="mt-4 text-lg leading-8 text-foreground/85">{n.excerpt}</p>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={n.image}
-          alt=""
-          loading="eager"
-          className="mt-8 aspect-video w-full rounded-lg border border-border object-cover"
-        />
+        <ZoomableImage src={n.image} label={n.title} className="mt-8" />
         <div className="mt-8 space-y-5 leading-8 text-foreground/80">
           {n.body.map((p, i) => (
             <div key={i} dangerouslySetInnerHTML={{ __html: p }} />

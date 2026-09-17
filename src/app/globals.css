@@ -175,24 +175,6 @@
   filter: blur(0);
 }
 
-/* ── Download card float ── */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-8px);
-  }
-}
-.animate-float {
-  animation: float 4s ease-in-out infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  .animate-float {
-    animation: none;
-  }
-}
-
 /* ── Header scrolled state (DOM-toggled, no React re-render) ── */
 header.is-scrolled {
   border-bottom-color: var(--border);
@@ -255,11 +237,11 @@ header.is-scrolled {
   transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 .btn-light:hover {
-  background: linear-gradient(180deg, #fff8e8 0%, #f5deb0 100%);
+  background: linear-gradient(180deg, #e8bd63 0%, #cfa04a 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
-    0 2px 12px rgba(212, 164, 76, 0.35);
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12),
+    0 2px 12px rgba(212, 164, 76, 0.45);
 }
 .btn-light:active {
   transform: translateY(1px);
@@ -285,7 +267,7 @@ header.is-scrolled {
 
 /* ── World map (Dev A) ── */
 .map-stage {
-  cursor: url("/images/map/cursor.svg") 0 49, pointer;
+  cursor: url("/images/map/cursor.png") 0 39, pointer;
 }
 .map-dim {
   filter: sepia(0.6) brightness(0.55) contrast(0.95);
@@ -298,16 +280,28 @@ header.is-scrolled {
   mask-image: radial-gradient(circle at var(--mx) var(--my), #000 0, #000 10%, transparent 22%);
 }
 .map-marker {
+  position: relative;
   image-rendering: pixelated;
   border-radius: 4px;
-  /* asset team spec: drop shadow #FFFCAD, blur 10, spread 1 */
-  box-shadow: 0 0 10px 1px #fffcad;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease;
+}
+/* Glow radiating outward from behind the sprite (asset team colour #FFFCAD) */
+.map-hotspot::before {
+  content: "";
+  position: absolute;
+  inset: -55%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 252, 173, 0.95) 0%, rgba(255, 252, 173, 0.45) 35%, rgba(255, 252, 173, 0) 70%);
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .map-hotspot:hover .map-marker,
 .map-hotspot:focus-visible .map-marker {
   transform: translateY(-4px);
-  box-shadow: 0 0 16px 3px #fffcad;
+}
+.map-hotspot:hover::before,
+.map-hotspot:focus-visible::before {
+  transform: scale(1.35);
 }
 .map-hotspot .map-label {
   opacity: 0;
@@ -321,6 +315,7 @@ header.is-scrolled {
 }
 @media (prefers-reduced-motion: reduce) {
   .map-marker,
+  .map-hotspot::before,
   .map-hotspot .map-label {
     transition: none;
   }
