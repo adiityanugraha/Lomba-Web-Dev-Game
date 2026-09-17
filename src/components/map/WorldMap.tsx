@@ -93,7 +93,6 @@ export default function WorldMap() {
             {/* Phones get the 768px file; the layout box stays MAP_WIDTH x MAP_HEIGHT either way. */}
             <picture>
               <source media="(max-width: 767px)" srcSet="/images/map/orsterra-768.jpg" />
-              { }
               <img
                 src="/images/map/orsterra.jpg"
                 alt="Map of Orsterra"
@@ -106,7 +105,6 @@ export default function WorldMap() {
             </picture>
             <picture>
               <source media="(max-width: 767px)" srcSet="/images/map/orsterra-768.jpg" />
-              { }
               <img
                 ref={litRef}
                 src="/images/map/orsterra.jpg"
@@ -122,7 +120,9 @@ export default function WorldMap() {
             {regions.map((r) => (
               <div
                 key={r.slug}
-                className="absolute"
+                // Active hotspot on top so its label/halo is never hidden by a neighbouring sprite
+                // (KeepScale's transform makes a stacking context, so z-index must sit on this wrapper).
+                className={active?.slug === r.slug ? "absolute z-10" : "absolute"}
                 style={{ left: `${r.position.x}%`, top: `${r.position.y}%` }}
               >
                 <KeepScale>
