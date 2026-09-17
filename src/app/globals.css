@@ -280,16 +280,28 @@ header.is-scrolled {
   mask-image: radial-gradient(circle at var(--mx) var(--my), #000 0, #000 10%, transparent 22%);
 }
 .map-marker {
+  position: relative;
   image-rendering: pixelated;
   border-radius: 4px;
-  /* asset team spec: drop shadow #FFFCAD, blur 10, spread 1 */
-  box-shadow: 0 0 10px 1px #fffcad;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.25s ease;
+}
+/* Glow radiating outward from behind the sprite (asset team colour #FFFCAD) */
+.map-hotspot::before {
+  content: "";
+  position: absolute;
+  inset: -55%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 252, 173, 0.95) 0%, rgba(255, 252, 173, 0.45) 35%, rgba(255, 252, 173, 0) 70%);
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 .map-hotspot:hover .map-marker,
 .map-hotspot:focus-visible .map-marker {
   transform: translateY(-4px);
-  box-shadow: 0 0 16px 3px #fffcad;
+}
+.map-hotspot:hover::before,
+.map-hotspot:focus-visible::before {
+  transform: scale(1.35);
 }
 .map-hotspot .map-label {
   opacity: 0;
@@ -303,6 +315,7 @@ header.is-scrolled {
 }
 @media (prefers-reduced-motion: reduce) {
   .map-marker,
+  .map-hotspot::before,
   .map-hotspot .map-label {
     transition: none;
   }

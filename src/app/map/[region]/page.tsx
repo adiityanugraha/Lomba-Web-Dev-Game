@@ -85,13 +85,10 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
               <p className="mt-3">{t.description}</p>
             </InfoBlock>
             <InfoBlock eyebrow="PATH ACTION" title={t.pathAction}>
-              <p>
-                {t.name}&apos;s Path Action, used on the people of Orsterra&apos;s towns. Every traveler has one; how it
-                is used changes which doors open on the road.
-              </p>
+              <p>{t.pathActionDescription}</p>
             </InfoBlock>
             <InfoBlock eyebrow="TALENT" title={t.talent}>
-              <p>{t.name}&apos;s Talent, a unique ability that shapes how they fight and explore.</p>
+              <p>{t.talentDescription}</p>
             </InfoBlock>
           </div>
         </div>
