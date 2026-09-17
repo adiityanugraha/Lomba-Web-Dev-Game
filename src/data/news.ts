@@ -25,7 +25,7 @@ const items: NewsItem[] = [
     title: "OCTOPATH TRAVELER AND OCTOPATH TRAVELER II ANNOUNCED FOR NINTENDO SWITCH 2",
     date: "2026-07-13",
     excerpt: "Today, on the OCTOPATH TRAVELER series’ 8th anniversary, SQUARE ENIX announced that OCTOPATH TRAVELER and OCTOPATH TRAVELER II will be launching on Nintendo Switch 2 on Oct. 1, 2026*.",
-    image: "assets/Medias/OCTOPATH_SERIES_LOGOS.jpg",
+    image: "/assets/Medias/OCTOPATH_SERIES_LOGOS.jpg",
     body: [
       "OCTOPATH TRAVELER and OCTOPATH TRAVELER II are now available for pre-order digitally and physically as individual games and digitally only as a bundle. The critically acclaimed HD-2D RPG series, which first made its debut on Nintendo Switch in 2018 and has since shipped and sold more than 7 million copies worldwide, has been optimized from its original release on Nintendo Switch for Nintendo Switch 2 with improved resolution and frame rate for both games.",
       "About OCTOPATH TRAVELER,",
@@ -82,14 +82,14 @@ const items: NewsItem[] = [
     title: "A first look at the heroes of OCTOPATH TRAVELER",
     date: "2019-05-31",
     excerpt: "You can start the game with any character. Who will you choose?",
-    image: "assets/Medias/OCTOPATH_TRAVELER_FIRST_LOOK.jpg",
+    image: "/assets/Medias/OCTOPATH_TRAVELER_FIRST_LOOK.jpg",
     body: [
       "One of the coolest - and most distinct - features of OCTOPATH TRAVELER (releasing on PC 7 June, 2019) is that you can play through the game in any order you like.",
       "The game features eight distinct protagonists, each with unique stories, but the order in which you complete those tales is entirely up to you!",
       "That said, when you set out on your adventure, you will need to select a party leader - a role that falls to the first character you choose. While you can switch out characters, your starter remains in play until you finish their full tale.",
       "Naturally, you might wonder: which character should I pick? Rogue or warrior? Merchant or mage? There is no wrong choice, so it really comes down to which one sounds most interesting to you.",
       "If only there was some sort of chart or guide, to help you choose… oh, what’s that? There is:",
-      "<img src='assets/Medias/octopath-flowchart-pegi.jpg' alt='Character Selection Chart' class='w-full rounded-lg my-4 border border-border' />",
+      "<img src='/assets/Medias/octopath-flowchart-pegi.jpg' alt='Character Selection Chart' class='w-full rounded-lg my-4 border border-border' />",
       "That’s just the briefest of glimpses into the Travelers… but maybe you’re still not quite sure who’s right for you.",
       "Come back next week, and we’ll take a more detailed look at their personalities, skills and stories. See you then!",
       "<a href='https://store.steampowered.com/app/921570/OCTOPATH_TRAVELER/' target='_blank' rel='noreferrer' class='inline-block mt-4 font-bold text-red-600 hover:underline'>Pre-purchase OCTOPATH TRAVELER</a>"
@@ -101,7 +101,7 @@ const items: NewsItem[] = [
     title: "OCTOPATH TRAVELER out now on Steam",
     date: "2019-06-07",
     excerpt: "You can start the game with any character. Who will you choose?",
-    image: "assets/Medias/octopath-art-2.jpg",
+    image: "/assets/Medias/octopath-art-2.jpg",
     body: [
       "Here’s some news that will make your day at least eight times better - OCTOPATH TRAVELER is out now on Steam! The game was previously only available on Nintendo Switch, but from today, PC owners can experience the compelling characters, intense battles and distinctive visuals that have won it such acclaim.",
       '<iframe class="w-full aspect-video rounded-lg mt-4" src="https://www.youtube.com/embed/GRQEwauQTbs" title="OCTOPATH TRAVELER | The award-winning RPG comes to PC!" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
@@ -131,7 +131,7 @@ const items: NewsItem[] = [
     title: "Nintendo, Square Enix, and Iam8Bit join forces for a magical Octopath Traveler Launch!",
     date: "2018-07-17",
     excerpt: "The highly anticipated Octopath Traveler was released to many JRPG fans on Friday",
-    image: "assets/Medias/octopath-traveler-keyart.jpg",
+    image: "/assets/Medias/octopath-traveler-keyart.jpg",
     body: [
       "The night before the release, Nintendo and Square Enix teamed up with Iam8Bit for a magical launch party for some lucky fans.",
       "Last Thursday, July 12, 2018, Iam8bit opened it's gallery doors and gave way to a space filled with the artwork from Octopath Traveler. Artwork at the gallery featured the eight different characters who have their own individually crafted stories in the game.",
@@ -145,7 +145,7 @@ const items: NewsItem[] = [
     title: "Octopath Traveller makes it way to FINAL FANTASY RECORD KEEPER!",
     date: "2018-09-08",
     excerpt: "To commemorate the Octopath Traveler collaboration Crossing Paths, we have launched a special web campaign called Community Quest: Record Traveler!",
-    image: "assets/Medias/OCTOPATH_TRAVELER_CROSSOVER.jpg", // Add your image path here when ready
+    image: "/assets/Medias/OCTOPATH_TRAVELER_CROSSOVER.jpg", // Add your image path here when ready
     body: [
       "To commemorate the Octopath Traveler collaboration <strong>Crossing Paths</strong> (beginning 5:00 PM 9/12 PDT / 1:00 AM 9/13 UTC), we have launched a special web campaign called <strong>Community Quest: Record Traveler!</strong>",
       "Find FINAL FANTASY characters lost in the world of Octopath Traveler as you encounter characters from Octopath Traveler. You'll receive points every time you find a character, and get a hint for finding the next one.",
