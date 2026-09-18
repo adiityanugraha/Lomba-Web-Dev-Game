@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SmartImage } from "@/components/SmartImage";
 import type { NewsItem } from "@/data/news";
 
 export function formatDate(iso: string) {
@@ -18,11 +19,11 @@ export default function NewsCard({ item, variant = "row" }: { item: NewsItem; va
         className="card-interactive group block overflow-hidden rounded-lg border border-border bg-card"
       >
         <div className="overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <SmartImage
             src={item.image}
             alt=""
-            loading="eager"
+            priority
+            sizes="(max-width: 1024px) 100vw, 60vw"
             className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
           />
         </div>
@@ -41,11 +42,10 @@ export default function NewsCard({ item, variant = "row" }: { item: NewsItem; va
       href={`/news/${item.slug}`}
       className="card-interactive group flex gap-4 rounded-lg border border-border bg-card p-3"
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      <SmartImage
         src={item.image}
         alt=""
-        loading="lazy"
+        sizes="144px"
         className="aspect-[4/3] w-28 shrink-0 rounded object-cover sm:w-36"
       />
       <div className="min-w-0 py-1">

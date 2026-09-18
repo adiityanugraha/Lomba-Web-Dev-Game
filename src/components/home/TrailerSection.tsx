@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Play } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import { SmartImage } from "@/components/SmartImage";
 import { media } from "@/data/media";
 
 const TRAILER_ID = "ZQD9h8gUXb0";
@@ -43,12 +44,11 @@ export default function TrailerSection() {
               aria-label="Play Octopath Traveler trailer"
               className="group relative block w-full cursor-pointer"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <SmartImage
                 src={poster?.image ?? "/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Olberic_2.jpg"}
                 alt={poster?.alt ?? "Battle scene from Octopath Traveler"}
+                sizes="100vw"
                 className="aspect-video w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
-                loading="lazy"
               />
               <span
                 className="absolute inset-0 bg-background/35 transition-colors duration-500 group-hover:bg-background/25"

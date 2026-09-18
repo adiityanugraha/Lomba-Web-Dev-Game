@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeft, ArrowRight, Map } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import RegionHero from "@/components/map/RegionHero";
+import { SmartImage } from "@/components/SmartImage";
 import { getRegion, regions } from "@/data/regions";
 
 export const dynamicParams = false;
@@ -51,11 +52,11 @@ export default async function RegionPage({ params }: { params: Promise<{ region:
           {/* Character panel */}
           <Reveal as="aside" className="md:sticky md:top-24 md:self-start">
             <div className="overflow-hidden rounded-lg border border-border bg-card">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <SmartImage
                 src={t.portrait}
                 alt={`${t.name}, ${t.job}`}
-                loading="eager"
+                priority
+                sizes="(max-width: 768px) 100vw, 320px"
                 className="aspect-[9/11] w-full object-cover"
               />
               <div className="flex items-center gap-4 p-5">

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useState } from "react";
 
 /* Seeded PRNG — same output on server and client, no hydration mismatch. */
 function mulberry32(seed: number) {
@@ -13,35 +13,50 @@ function mulberry32(seed: number) {
   };
 }
 
-function generateParticles(count: number, rand: () => number) {
-  return Array.from({ length: count }, (_, i) => ({
-    id: i,
-    size: rand() * 2 + 1,
-    duration: rand() * 12 + 10,
-    delay: rand() * -20,
-    drift: rand() * 60 - 30,
-    left: rand() * 90 + 5,
-  }));
-}
+type Particle = { size: number; duration: number; delay: number; drift: number; left: number };
 
+/**
+ * Decorative ember layer. Deferred until the browser is idle and only on
+ * capable hardware: 10 particles on desktop, 6 on small screens, none when
+ * the user prefers reduced motion or the device has <= 4 CPU cores.
+ */
 export default function AmbientParticles() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [particles, setParticles] = useState<Particle[] | null>(null);
 
-  const particles = useMemo(() => generateParticles(18, mulberry32(42)), []);
-
-  /* Hide if user prefers reduced motion — client-only, no SSR mismatch. */
   useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (mq.matches && containerRef.current) {
-      containerRef.current.style.display = "none";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if ((navigator.hardwareConcurrency ?? 8) <= 4) return;
+    const schedule = (window as Window & { requestIdleCallback?: (cb: () => void) => number }).requestIdleCallback;
+    let timer = 0;
+    const start = () => {
+      const small = window.matchMedia("(max-width: 640px)").matches;
+      const count = small ? 6 : 10;
+      const rand = mulberry32(42);
+      setParticles(
+        Array.from({ length: count }, () => ({
+          size: rand() * 2 + 1,
+          duration: rand() * 12 + 10,
+          delay: rand() * -20,
+          drift: rand() * 60 - 30,
+          left: rand() * 90 + 5,
+        })),
+      );
+    };
+    if (schedule) {
+      const id = schedule(start);
+      return () => (window as Window & { cancelIdleCallback?: (id: number) => void }).cancelIdleCallback?.(id);
     }
+    timer = window.setTimeout(start, 1500);
+    return () => window.clearTimeout(timer);
   }, []);
 
+  if (!particles) return null;
+
   return (
-    <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[1] overflow-hidden">
-      {particles.map((p) => (
+    <div className="pointer-events-none fixed inset-0 z-[1] overflow-hidden" aria-hidden>
+      {particles.map((p, i) => (
         <div
-          key={p.id}
+          key={i}
           className="ambient-particle"
           style={
             {

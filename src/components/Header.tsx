@@ -47,8 +47,8 @@ export default function Header() {
     <header
       ref={headerRef}
       className={cn(
-        "fixed inset-x-0 top-0 z-50 bg-transparent transition-[background-color,backdrop-filter,border-color] duration-300",
-        open && "border-b border-border bg-background/95 backdrop-blur-md",
+        "fixed inset-x-0 top-0 z-50 bg-transparent transition-[background-color,border-color] duration-300",
+        open && "border-b border-border bg-background",
       )}
     >
       <nav aria-label="Primary" className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
@@ -103,7 +103,7 @@ export default function Header() {
       </nav>
 
       {open && (
-        <div id="mobile-nav" className="border-t border-border bg-background/95 backdrop-blur-md md:hidden">
+        <div id="mobile-nav" className="border-t border-border bg-background md:hidden">
           <ul className="mx-auto max-w-6xl space-y-1 px-4 py-4">
             {[...links, { href: "/map", label: "Map" }].map((l) => (
               <li key={l.href}>

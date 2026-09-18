@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { FaSteam, FaWindows, FaXbox, FaPlaystation } from "react-icons/fa";
+import { FaPlaystation, FaSteam, FaWindows, FaXbox } from "react-icons/fa";
 import { SiEpicgames } from "react-icons/si";
 import { TbDeviceNintendo } from "react-icons/tb";
 import type { IconType } from "react-icons";
 import { platforms } from "@/data/platforms";
 import Reveal from "@/components/Reveal";
+import { SmartImage } from "@/components/SmartImage";
 
 const platformIcons: Record<string, IconType> = {
   Steam: FaSteam,
@@ -28,12 +29,11 @@ export default function AvailableOn() {
   return (
     <section aria-label="Available on" className="relative overflow-hidden">
       <div className="absolute inset-0 bg-background" aria-hidden>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <SmartImage
           src="/assets/background_available_on.jpg"
           alt=""
+          sizes="100vw"
           className="absolute inset-0 m-auto h-full w-full object-contain"
-          loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/55 to-background" />
       </div>

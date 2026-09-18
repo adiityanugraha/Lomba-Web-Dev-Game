@@ -10,17 +10,22 @@ const display = Cinzel({
   variable: "--font-display",
   subsets: ["latin"],
   weight: ["500", "600", "700"],
+  display: "swap",
+  preload: true,
 });
 
 const logo = Cormorant_Garamond({
   variable: "--font-logo",
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["700"],
+  display: "swap",
+  preload: false,
 });
-
 const body = Source_Serif_4({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {

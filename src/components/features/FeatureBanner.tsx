@@ -1,41 +1,17 @@
-"use client";
-
-import { useRef } from "react";
-import { gsap, useGSAP } from "@/lib/gsap";
 import Reveal from "@/components/Reveal";
+import { SmartImage } from "@/components/SmartImage";
 import type { Feature } from "@/data/features";
 import { cn } from "@/lib/utils";
 
+/** Server component: static banner image, no per-banner scroll scrub. */
 export default function FeatureBanner({ feature, flip }: { feature: Feature; flip?: boolean }) {
-  const imgRef = useRef<HTMLImageElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useGSAP(() => {
-    const img = imgRef.current;
-    const section = sectionRef.current;
-    if (!img || !section) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) return;
-    gsap.fromTo(
-      img,
-      { yPercent: -10 },
-      {
-        yPercent: 10,
-        ease: "none",
-        scrollTrigger: { trigger: section, start: "top bottom", end: "bottom top", scrub: true },
-      },
-    );
-  }, []);
-
   return (
-    <section ref={sectionRef} aria-label={feature.title} className="relative overflow-hidden rounded-xl border border-border">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        ref={imgRef}
+    <section aria-label={feature.title} className="relative overflow-hidden rounded-xl border border-border [content-visibility:auto] [contain-intrinsic-size:auto_600px]">
+      <SmartImage
         src={feature.image}
         alt={feature.title}
-        loading="lazy"
-        className="absolute inset-0 h-[120%] w-full object-cover"
+        sizes="100vw"
+        className="absolute inset-0 h-full w-full object-cover"
       />
       <div
         className="absolute inset-0"

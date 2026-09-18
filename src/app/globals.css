@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -54,8 +53,26 @@
 }
 
 @layer base {
+  /* Reveal: hidden until IntersectionObserver adds .is-visible. Opacity +
+    transform only: both run on the compositor, no paint during scroll.
+    (Filter blur purposely excluded: animating blur forces repaint per frame.) */
   html.js .reveal-init {
     opacity: 0;
+    transform: translateY(28px);
+    transition:
+      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  html.js .reveal-init.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .reveal-init {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
   * {
     @apply border-border outline-ring/50;
@@ -75,6 +92,25 @@
   ::selection {
     background: var(--primary);
     color: var(--primary-foreground);
+  }
+}
+/* ── Route transition (template.tsx) ── */
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.page-enter {
+  animation: page-in 0.4s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter {
+    animation: none;
   }
 }
 
@@ -100,39 +136,41 @@
   position: fixed;
   bottom: -10px;
   width: var(--size, 2px);
-  height: var(--size, 2px);
-  background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+  height: 2px;
+  background: var(--primary);
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
   animation: particle-float var(--dur, 12s) linear infinite;
   animation-delay: var(--delay, 0s);
+  opacity: 0.6;
+  will-change: transform;
+}
+/* ── Hero entrance (CSS only, compositor properties only) ── */
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+html.js .hero-fade {
   opacity: 0;
-  --drift: calc(var(--size, 2px) * 15);
+  animation: hero-in 1s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
 }
-
-/* ── Hero cinematic letterbox bars ── */
-.hero-letterbox {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 0;
-  background: var(--background);
-  z-index: 10;
-  pointer-events: none;
-}
-.hero-letterbox--top {
-  top: 0;
-}
-.hero-letterbox--bottom {
-  bottom: 0;
-}
-.hero-letterbox.is-open {
-  height: 48px;
-}
-@media (min-width: 768px) {
-  .hero-letterbox.is-open {
-    height: 64px;
+@media (prefers-reduced-motion: reduce) {
+  html.js .hero-fade {
+    opacity: 1;
+    animation: none;
+  }
+  .scroll-progress {
+    display: none;
+  }
+  .ambient-particle {
+    display: none;
   }
 }
 
@@ -149,38 +187,34 @@
   pointer-events: none;
 }
 
-/* ── Card interactive hover ── */
+/* ── Card interactive hover (compositor-only: no filter/blur repaints) ── */
 .card-interactive {
   position: relative;
-  transition: height 0.6s cubic-bezier(0.22, 1, 0.36, 1), flex 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 .card-interactive:hover {
   box-shadow: 0 0 24px -4px rgba(212, 164, 76, 0.3);
 }
-.card-interactive img {
-  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s ease;
-}
-.card-interactive:hover img {
-  filter: brightness(1.08);
-}
 .card-interactive .card-reveal {
   opacity: 0;
   transform: translateY(6px);
-  filter: blur(3px);
-  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .card-interactive:hover .card-reveal {
   opacity: 1;
   transform: translateY(0);
-  filter: blur(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-interactive,
+  .card-interactive .card-reveal {
+    transition: none;
+  }
 }
 
 /* ── Header scrolled state (DOM-toggled, no React re-render) ── */
 header.is-scrolled {
   border-bottom-color: var(--border);
-  background-color: color-mix(in srgb, var(--background) 95%, transparent);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: var(--background);
 }
 
 /* ── Buttons ── */
@@ -276,6 +310,8 @@ header.is-scrolled {
   --mx: 50%;
   --my: 50%;
   opacity: 0;
+  transition: opacity 0.35s ease-out;
+  will-change: opacity;
   -webkit-mask-image: radial-gradient(circle at var(--mx) var(--my), #000 0, #000 10%, transparent 22%);
   mask-image: radial-gradient(circle at var(--mx) var(--my), #000 0, #000 10%, transparent 22%);
 }
@@ -318,5 +354,16 @@ header.is-scrolled {
   .map-hotspot::before,
   .map-hotspot .map-label {
     transition: none;
+  }
+}
+
+/* ── Carousel track: single transform layer, no layout per slide ── */
+.carousel-track {
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
+    will-change: auto;
   }
 }

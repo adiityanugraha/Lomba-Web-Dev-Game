@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SmartImage } from "@/components/SmartImage";
 import type { Region } from "@/data/regions";
 
 export default function TravelerCard({ region }: { region: Region }) {
@@ -10,11 +11,10 @@ export default function TravelerCard({ region }: { region: Region }) {
       aria-label={`${t.name}, ${t.job} of the ${region.name}`}
     >
       <div className="relative aspect-[9/11] overflow-hidden">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <SmartImage
           src={t.portrait}
           alt=""
-          loading="lazy"
+          sizes="(max-width: 768px) 50vw, 25vw"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         <span

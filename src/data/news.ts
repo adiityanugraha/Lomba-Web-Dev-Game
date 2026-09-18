@@ -68,7 +68,7 @@ const items: NewsItem[] = [
       "Set in the beautiful, but dangerous, world of Osterra, OCTOPATH TRAVELER puts you in control of 8 unique heroes - each with their own skillset, motivations and storylines. You can play as:",
       "<ul class='list-disc pl-8 space-y-4 mt-4 mb-8'><li><strong>Olberic:</strong> an experienced knight in search of redemption</li><li><strong>Cyrus:</strong> a scholar whose book smarts don’t always equate to common sense</li><li><strong>Tressa:</strong> an enthusiastic merchant who is travelling the world to hone her skills</li><li><strong>Ophelia:</strong> a noble cleric on a pilgrimage to Orsterra’s holy sites</li><li><strong>Primrose:</strong> a fallen noble on a quest to avenge her murdered father</li><li><strong>Alfyn:</strong> a naïve apothecary determined to help people whatever the cost</li><li><strong>Therion:</strong> a skilled thief trapped in an impossible situation</li><li><strong>H’annit:</strong> an expert hunter, tracking down her missing master</li></ul>",
 
-      "<img src='/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Tressa.jpg' alt='Gameplay screenshot' class='w-full rounded-lg my-8 border border-border object-cover' />",
+      "<img src='/assets/Medias/OCTOPATH_TRAVELER_Screenshot_Tressa.jpg' alt='Gameplay screenshot' loading='lazy' decoding='async' class='w-full rounded-lg my-8 border border-border object-cover' />",
 
       "Players have the freedom to begin their journey with any traveler and assemble their team in whatever order they prefer. Every hero features a specific class alongside unique 'Path Actions'—special skills utilized outside of combat to advance the story.",
 
@@ -93,7 +93,7 @@ const items: NewsItem[] = [
       "That said, when you set out on your adventure, you will need to select a party leader - a role that falls to the first character you choose. While you can switch out characters, your starter remains in play until you finish their full tale.",
       "Naturally, you might wonder: which character should I pick? Rogue or warrior? Merchant or mage? There is no wrong choice, so it really comes down to which one sounds most interesting to you.",
       "If only there was some sort of chart or guide, to help you choose… oh, what’s that? There is:",
-      "<img src='/assets/Medias/octopath-flowchart-pegi.jpg' alt='Character Selection Chart' class='w-full rounded-lg my-4 border border-border' />",
+      "<img src='/assets/Medias/octopath-flowchart-pegi.jpg' alt='Character Selection Chart' loading='lazy' decoding='async' class='w-full rounded-lg my-4 border border-border' />",
       "That’s just the briefest of glimpses into the Travelers… but maybe you’re still not quite sure who’s right for you.",
       "Come back next week, and we’ll take a more detailed look at their personalities, skills and stories. See you then!",
       "<a href='https://store.steampowered.com/app/921570/OCTOPATH_TRAVELER/' target='_blank' rel='noreferrer' class='inline-block mt-4 font-bold text-red-600 hover:underline'>Pre-purchase OCTOPATH TRAVELER</a>",

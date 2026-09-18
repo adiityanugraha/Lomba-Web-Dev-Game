@@ -6,6 +6,7 @@ import { KeyRound, Map, ScrollText, Swords } from "lucide-react";
 import { features } from "@/data/features";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";
+import { SmartImage } from "@/components/SmartImage";
 
 const panelIcons = [Map, KeyRound, Swords, ScrollText];
 
@@ -60,11 +61,10 @@ export default function FeatureTeaser() {
                   isActive ? "border-primary/60 sm:flex-[3]" : "border-border sm:flex-1 hover:border-muted-foreground",
                 )}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <SmartImage
                   src={src}
                   alt={titles[i]?.title ?? `Feature ${i + 1}`}
-                  loading="lazy"
+                  sizes="(max-width: 640px) 100vw, 50vw"
                   className={cn(
                     "absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
                     isActive ? "scale-105" : "scale-100",

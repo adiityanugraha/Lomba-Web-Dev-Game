@@ -1,8 +1,7 @@
 "use client";
 
-import { useCallback, useRef, useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { gsap, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
 type CarouselProps = {
@@ -11,31 +10,15 @@ type CarouselProps = {
   className?: string;
 };
 
+/**
+ * CSS-transform carousel with slide windowing: only the active slide and its
+ * two neighbours stay mounted, so a 15-screenshot gallery never holds 15
+ * decoded bitmaps. No animation library.
+ */
 export default function Carousel({ slides, ariaLabel, className }: CarouselProps) {
-  const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const count = slides.length;
   const touchX = useRef<number | null>(null);
-
-  const goTo = useCallback(
-    (next: number) => {
-      if (count === 0) return;
-      setIndex((next + count) % count);
-    },
-    [count],
-  );
-
-  useGSAP(() => {
-    const track = trackRef.current;
-    if (!track || count === 0) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    gsap.to(track, {
-      xPercent: -100 * index,
-      duration: reduce ? 0 : 0.55,
-      ease: "power2.out",
-      overwrite: true,
-    });
-  }, [index, count]);
 
   if (count === 0) {
     return (
@@ -44,6 +27,8 @@ export default function Carousel({ slides, ariaLabel, className }: CarouselProps
       </div>
     );
   }
+
+  const goTo = (next: number) => setIndex(((next % count) + count) % count);
 
   return (
     <div
@@ -58,8 +43,8 @@ export default function Carousel({ slides, ariaLabel, className }: CarouselProps
     >
       <div className="overflow-hidden rounded-lg">
         <div
-          ref={trackRef}
-          className="flex"
+          className="carousel-track flex transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+          style={{ transform: `translate3d(${-100 * index}%, 0, 0)` }}
           onPointerDown={(e) => {
             touchX.current = e.clientX;
           }}
@@ -71,19 +56,22 @@ export default function Carousel({ slides, ariaLabel, className }: CarouselProps
             if (dx > 40) goTo(index - 1);
           }}
         >
-          {slides.map((slide, i) => (
-            <div
-              key={i}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${i + 1} of ${count}`}
-              aria-hidden={i !== index}
-              className="w-full shrink-0"
-              inert={i !== index ? true : undefined}
-            >
-              {slide}
-            </div>
-          ))}
+          {slides.map((slide, i) => {
+            const dist = Math.min((i - index + count) % count, (index - i + count) % count);
+            return (
+              <div
+                key={i}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${i + 1} of ${count}`}
+                aria-hidden={i !== index}
+                className="w-full shrink-0"
+                inert={i !== index ? true : undefined}
+              >
+                {dist <= 1 ? slide : <div className="aspect-video w-full" aria-hidden />}
+              </div>
+            );
+          })}
         </div>
       </div>
 

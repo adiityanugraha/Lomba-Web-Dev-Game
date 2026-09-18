@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Maximize2, X, ZoomIn, ZoomOut } from "lucide-react";
+import { SmartImage } from "@/components/SmartImage";
 import { cn } from "@/lib/utils";
 
 type ZoomableImageProps = {
@@ -63,11 +64,11 @@ export default function ZoomableImage({ src, alt = "", label, className }: Zooma
           className,
         )}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <SmartImage
           src={src}
           alt={alt}
-          loading="eager"
+          priority
+          sizes="(max-width: 768px) 100vw, 768px"
           className="aspect-video w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.02]"
         />
         <span
@@ -85,7 +86,7 @@ export default function ZoomableImage({ src, alt = "", label, className }: Zooma
             aria-modal="true"
             aria-label={`Enlarged image: ${label}`}
             onClick={close}
-            className="fixed inset-0 z-[80] flex flex-col bg-background/95 backdrop-blur-sm"
+            className="fixed inset-0 z-[80] flex flex-col bg-background/95"
           >
             <div className="flex shrink-0 items-center justify-end gap-2 p-3 sm:p-4">
               {canZoom && (

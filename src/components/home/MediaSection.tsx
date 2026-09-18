@@ -1,5 +1,6 @@
 import Carousel from "@/components/Carousel";
 import Reveal from "@/components/Reveal";
+import { SmartImage } from "@/components/SmartImage";
 import { media } from "@/data/media";
 
 export default function MediaSection() {
@@ -21,8 +22,7 @@ export default function MediaSection() {
           ariaLabel="Game screenshots"
           slides={media.map((m) => (
             <figure key={m.image} className="relative">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={m.image} alt={m.alt} loading="lazy" className="aspect-video w-full object-cover" />
+              <SmartImage src={m.image} alt={m.alt} sizes="100vw" className="aspect-video w-full object-cover" />
               <figcaption className="border-t border-border bg-card px-4 py-3 text-sm text-muted-foreground">
                 {m.alt}
               </figcaption>
