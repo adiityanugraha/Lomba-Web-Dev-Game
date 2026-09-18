@@ -1,10 +1,10 @@
 # syntax=docker/dockerfile:1
-FROM node:20-bookworm-slim AS base
+FROM node:24-bookworm-slim AS base
 WORKDIR /app
 
 FROM base AS deps
 COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund
+RUN npm install --no-audit --no-fund
 
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
@@ -12,7 +12,7 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npm run build
 
-FROM node:20-bookworm-slim AS runner
+FROM node:24-bookworm-slim AS runner
 WORKDIR /app
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
