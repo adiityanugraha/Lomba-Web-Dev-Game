@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Octopath Traveler Fan Showcase
 
-## Getting Started
+Fan-made website for educational and competition purposes. Not affiliated with or endorsed by Square Enix. All Octopath Traveler assets belong to Square Enix Co., Ltd.
 
-First, run the development server:
+Built with Next.js 16, React 19, and Tailwind CSS 4. Pages cover home, characters, features, world map, news, and download info, with content served from typed data files in `src/data`.
+
+## Requirements
+
+- Node.js (LTS) and npm
+
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command            | What it does                              |
+| ------------------ | ----------------------------------------- |
+| `npm run dev`      | Start the dev server                      |
+| `npm run build`    | Production build                          |
+| `npm run start`    | Serve the production build                |
+| `npm run lint`     | Run ESLint                                |
+| `npm run check-data` | Validate the data files in `src/data`  |
 
-## Learn More
+## Project layout
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+  app/          Routes: /, /characters, /features, /map, /map/[region],
+                /news, /news/[slug], /download
+  components/   Header, Footer, and per-page sections (home, map, features, download)
+  data/         Content source: features, media, news, platforms, regions
+  lib/          Shared helpers
+  types/        Shared TypeScript types
+public/         Static images and assets
+scripts/        Data validation (`check-data.ts`) and image optimization
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Deploy with Docker
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+`docker-compose.yml` runs two services: the Next.js app (`web`, port 1999) and a Cloudflare Tunnel sidecar (`tunnel`).
 
-## Deploy on Vercel
+1. Copy `.env.example` to `.env` and fill in `CLOUDFLARE_TUNNEL_TOKEN` from your Cloudflare Zero Trust tunnel settings.
+2. Start it:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker compose up -d --build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## License
+
+MIT. See [LICENSE.md](LICENSE.md).
