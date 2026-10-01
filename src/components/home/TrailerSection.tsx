@@ -59,8 +59,10 @@ export default function TrailerSection() {
                   <Play className="size-6 fill-current" />
                 </span>
               </span>
-              <span className="absolute bottom-3 left-3 rounded bg-background/80 px-3 py-1.5 font-display text-sm font-semibold tracking-wide text-foreground">
-                OCTOPATH TRAVELER Gameplay Trailer (2019)
+              <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/95 via-background/75 to-transparent px-3.5 pt-7 pb-2.5 text-left sm:inset-auto sm:bottom-4 sm:left-4 sm:rounded sm:bg-background/80 sm:px-3 sm:py-1.5 sm:pt-1.5">
+                <span className="font-display block text-[11px] leading-tight font-semibold tracking-wide text-foreground sm:text-sm">
+                  OCTOPATH TRAVELER Gameplay Trailer (2019)
+                </span>
               </span>
             </button>
           )}

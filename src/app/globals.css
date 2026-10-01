@@ -190,7 +190,11 @@ html.js .hero-fade {
 /* ── Card interactive hover (compositor-only: no filter/blur repaints) ── */
 .card-interactive {
   position: relative;
-  transition: flex 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  transition:
+    height 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    flex 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
 }
 .card-interactive:hover {
   box-shadow: 0 0 24px -4px rgba(212, 164, 76, 0.3);

@@ -55,7 +55,7 @@ export default function FeatureTeaser() {
                 aria-expanded={isActive}
                 aria-label={`${titles[i]?.title ?? `Feature ${i + 1}`}: ${isActive ? "expanded" : "expand"}`}
                 className={cn(
-                  "card-interactive relative h-[72px] overflow-hidden rounded-lg border text-left",
+                  "card-interactive relative h-[72px] cursor-pointer overflow-hidden rounded-lg border text-left",
                   "sm:h-full sm:min-h-0",
                   isActive && "h-72 sm:h-full",
                   isActive ? "border-primary/60 sm:flex-[3]" : "border-border sm:flex-1 hover:border-muted-foreground",
