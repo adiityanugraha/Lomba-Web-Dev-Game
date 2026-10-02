@@ -42,22 +42,6 @@ Sebuah website showcase interaktif dan responsif yang mengangkat dunia **Octopat
 
 ---
 
-## Keunggulan Teknis & Optimasi
-
-1. **Static Site Generation (SSG)**:
-   - Seluruh 25 rute halaman (termasuk halaman detail tiap wilayah dan artikel berita) di-render di awal saat build, menghasilkan pemuatan halaman di bawah satu detik.
-2. **Animasi Ringan (Compositor-Only)**:
-   - Animasi scroll reveal, partikel atmosfer, dan kartu interaktif dijalankan menggunakan properti GPU compositor (`opacity`, `transform`, `flex`, `height`).
-   - Mencegah layout thrashing dan penurunan frame rate saat pengguna melakukan scrolling cepat.
-3. **Aksesibilitas & Standar Antarmuka (A11y)**:
-   - Dukungan navigasi keyboard penuh (`Tab`, `Enter`, `Escape` untuk menutup drawer dan dialog).
-   - Kontras warna teks memenuhi standar WCAG AA di seluruh komponen tema gelap.
-   - Mendukung preferensi sistem `prefers-reduced-motion` untuk pengguna yang sensitif terhadap animasi.
-4. **Keamanan Tipe Data (Strict TypeScript)**:
-   - Seluruh data konten dikelola terpusat di `src/data/` dengan tipe data TypeScript ketat, serta divalidasi otomatis via skrip pengecekan data (`npm run check-data`).
-
----
-
 ## Pernyataan Hukum & Hak Cipta
 
 Website ini merupakan proyek buatan penggemar (fan-made) yang bersifat non-komersial, dibuat secara khusus untuk tujuan edukasi dan partisipasi dalam kompetisi pengembangan web (Web Development Game Competition). Website ini tidak berafiliasi dengan, disponsori, atau didukung secara resmi oleh Square Enix.
