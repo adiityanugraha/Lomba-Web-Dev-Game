@@ -31,15 +31,14 @@ Sebuah website showcase interaktif dan responsif yang mengangkat dunia **Octopat
 
 ## Teknologi yang Digunakan
 
-| Lapisan                    | Teknologi                                                          |
-| :------------------------- | :----------------------------------------------------------------- |
-| **Framework**              | Next.js 16 (App Router, Turbopack, Standalone Output)              |
-| **Library UI**             | React 19, Lucide React, React Icons                                |
-| **Styling**                | Tailwind CSS 4, Animasi & Variabel CSS Kustom                      |
-| **Tipografi**              | Cinzel (Display), Cormorant Garamond (Logo), Source Serif 4 (Body) |
-| **Bahasa Pemrograman**     | TypeScript 5 (Strict Mode)                                         |
-| **Optimasi Gambar**        | Next.js SmartImage dengan format WebP dan fallback JPG             |
-| **Deployment & Kontainer** | Docker (Node 24 Bookworm Slim), Docker Compose, Cloudflare Tunnel  |
+| Lapisan                | Teknologi                                                          |
+| :--------------------- | :----------------------------------------------------------------- |
+| **Framework**          | Next.js 16 (App Router, Turbopack, Standalone Output)              |
+| **Library UI**         | React 19, Lucide React, React Icons                                |
+| **Styling**            | Tailwind CSS 4, Animasi & Variabel CSS Kustom                      |
+| **Tipografi**          | Cinzel (Display), Cormorant Garamond (Logo), Source Serif 4 (Body) |
+| **Bahasa Pemrograman** | TypeScript 5 (Strict Mode)                                         |
+| **Optimasi Gambar**    | Next.js SmartImage dengan format WebP dan fallback JPG             |
 
 ---
 
